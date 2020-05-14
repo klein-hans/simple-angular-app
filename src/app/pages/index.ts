@@ -1,0 +1,6 @@
+export { AddEditUserComponent } from './add-edit-user/add-edit-user.component'
+export { UsersComponent } from './users/users.component'
+export { AccountComponent } from './account/account.component'
+export { DashboardComponent } from './dashboard/dashboard.component'
+export { LoginComponent } from './login/login.component'
+export { RegisterComponent } from './register/register.component'

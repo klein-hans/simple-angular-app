@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "simple-angular-fire": {
+      "hosting": {
+        "simple-angular-fire-app": [
+          "simple-angular-fire"
+        ]
+      }
+    }
+  }
+}

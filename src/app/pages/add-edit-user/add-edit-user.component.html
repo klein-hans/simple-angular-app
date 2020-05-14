@@ -1,0 +1,109 @@
+<div class="card">
+  <div class="card-header card-header-primary">
+      <h4 class="card-title">Add User</h4>
+      <p class="card-category">Complete your profile</p>
+  </div>
+  <div class="card-body p">
+      <form class="px-3 pt-2" [formGroup]="createUpdateUserForm" (ngSubmit)="onAddUser()">
+        <div class="row">
+          <div class="col-md-12">
+              <mat-form-field>
+                <input 
+                  formControlName="displayName"
+                  matInput 
+                  placeholder="Name">
+              </mat-form-field>
+              <mat-error 
+                *ngIf="name.touched && name.hasError('required')">
+                  Name is required
+              </mat-error>
+          </div>
+          <div class="col-md-12">
+              <mat-form-field>
+                <input 
+                  formControlName="email"
+                  matInput 
+                  placeholder="Email Address" 
+                  type="email">
+              </mat-form-field>
+              <mat-error *ngIf="email.touched && email.hasError('required')">Email is required</mat-error>
+              <mat-error *ngIf="email.touched && email.hasError('email')">Please provide a valid email</mat-error>
+              <!-- <mat-error *ngIf="emai.hasError('email')">Please provide a valid email address</mat-error> -->
+          </div>
+          <div class="col-md-9">
+            <mat-form-field>
+              <mat-label>Password</mat-label>
+              <input
+                formControlName="password"
+                matInput 
+                [type]="hide ? 'password' : 'text'">
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            </mat-form-field>       
+            <mat-error 
+              *ngIf="password.touched && password.hasError('required')">
+                Password is required.
+            </mat-error>
+            <mat-error
+              *ngIf="password.touched && (password.hasError('required') || password.hasError('minlength'))">
+              Must be at least 8 characters!
+            </mat-error>
+            <mat-error
+              *ngIf="password.touched && (password.hasError('required') || password.hasError('hasNumber'))">
+              Must contain at least 1 number!
+            </mat-error>
+            <mat-error 
+              *ngIf="password.touched && (password.hasError('required') || password.hasError('hasCapitalCase'))">
+              Must contain at least 1 in Capital Case!
+            </mat-error>
+            <mat-error 
+              *ngIf="password.touched && (password.hasError('required') || password.hasError('hasSmallCase'))">
+              Must contain at least 1 Letter in Small Case!
+            </mat-error>
+            <mat-error 
+              *ngIf="password.touched && (password.hasError('required') || password.hasError('hasSpecialCharacters'))">
+              Must contain at least 1 Special Character!
+            </mat-error>
+          </div>
+          <div class="col-md-3 p-0">
+            <button 
+              mat-raised-button
+              type="button" 
+              (click)="password_generator(10)"
+              class="mb-0 btn btn-primary btn-sm pull-right">
+              Generate
+            </button>
+          </div>
+          <div class="col-md-12">
+            <mat-form-field>
+              <input 
+                formControlName="phoneNumber" 
+                matInput 
+                placeholder="Phone Number" 
+                type="text">
+            </mat-form-field>
+          </div>
+          <!-- <div class="col-md-12">
+            <mat-form-field>
+              <mat-label>Role</mat-label>
+              <mat-select formControlName="role">
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let role of roles" [value]="role">
+                  {{ role.name }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="role.touched && role.hasError('required')">Role is required</mat-error>
+            </mat-form-field>
+          </div> -->
+        </div>
+        <button 
+          mat-raised-button 
+          type="submit" 
+          class="btn btn-primary pull-right">
+            Create User
+        </button>
+        <div class="clearfix"></div>
+      </form>
+  </div>
+</div>

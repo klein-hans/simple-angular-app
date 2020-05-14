@@ -1,0 +1,169 @@
+<div class="row mx-0">
+  <div class="my-3 mx-auto px-0 col-lg-3 col-md-6 col-sm-7">
+      <div class="card">
+          <div class="card-header card-header-primary text-center">
+            <h4 class="card-title">Register</h4>
+            <div class="social-line">
+              <a 
+                (click)="onFacebookLogin()"
+                href="javascript:void(0)" 
+                class="btn btn-just-icon btn-link btn-white">
+                <i class="fa fa-facebook-square"></i>
+              </a>
+              <a
+                (click)="onGithubLogin()" 
+                href="javascript:void(0)" 
+                class="btn btn-just-icon btn-link btn-white">
+                <i class="fa fa-github"></i>
+              </a>
+              <a 
+                (click)="onGoogleLogin()"
+                href="javascript:void(0)" class="btn btn-just-icon btn-link btn-white">
+                <i class="fa fa-google-plus"></i>
+              </a>
+            </div>
+          </div>
+          <div class="card-body ">
+            <p class="card-description text-center">Or Be Classical</p>
+            <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+              <div class="bmd-form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="material-icons">face</i>
+                    </span>
+                  </div>
+                  <mat-form-field class="w-75" [ngClass]="{'has-danger': name.touched && name.hasError('required')}">
+                    <mat-label>Name</mat-label>
+                    <input 
+                      formControlName="displayName"
+                      matInput 
+                      type="text">
+                  </mat-form-field>  
+                  <mat-error *ngIf="name.touched && name.hasError('required')">
+                    Name is required.
+                  </mat-error>
+                </div>
+              </div> <!-- end of bmd-form-group -->
+              <div class="bmd-form-group mt-3">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="material-icons">email</i>
+                    </span>
+                  </div>
+                  <mat-form-field class="w-75" [ngClass]="{'has-danger': email.touched && (email.hasError('required') || email.hasError('email'))}">
+                    <mat-label>Email</mat-label>
+                    <input
+                      formControlName="email"
+                      matInput 
+                      type="email" 
+                      [email]="true">
+                  </mat-form-field>  
+                  <mat-error 
+                    *ngIf="email.touched && email.hasError('required')">
+                      Email is required.
+                  </mat-error>
+                  <mat-error 
+                    *ngIf="email.touched && email.hasError('email') && !email.hasError('required')">
+                      Please enter a valid email address
+                  </mat-error>
+                </div>
+              </div> <!-- end of bmd-form-group -->
+              <div class="bmd-form-group mt-3">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="material-icons">lock_outline</i>
+                    </span>
+                  </div>
+                  <mat-form-field 
+                    class="w-75" 
+                    [ngClass]="{'has-danger': password.touched && password.hasError('required') }">
+                    <mat-label>Password</mat-label>
+                    <input
+                      formControlName="password"
+                      matInput 
+                      [type]="hide ? 'password' : 'text'">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                  </mat-form-field>       
+                  <mat-error 
+                    *ngIf="password.touched && password.hasError('required')">
+                      Password is required.
+                  </mat-error>
+                  <mat-error
+                    *ngIf="password.touched && (password.hasError('required') || password.hasError('minlength'))"
+                    >
+                    Must be at least 8 characters!
+                  </mat-error>
+                  <mat-error
+                    *ngIf="password.touched && (password.hasError('required') || password.hasError('hasNumber'))"
+                    >
+                    Must contain at least 1 number!
+                  </mat-error>
+                  <mat-error 
+                    *ngIf="password.touched && (password.hasError('required') || password.hasError('hasCapitalCase'))"
+                    >
+                    Must contain at least 1 in Capital Case!
+                  </mat-error>
+                  <mat-error 
+                    *ngIf="password.touched && (password.hasError('required') || password.hasError('hasSmallCase'))"
+                    >
+                    Must contain at least 1 Letter in Small Case!
+                  </mat-error>
+                  <mat-error 
+                    *ngIf="password.touched && (password.hasError('required') || password.hasError('hasSpecialCharacters'))"
+                    >
+                    Must contain at least 1 Special Character!
+                  </mat-error>      
+                </div>
+              </div> <!-- end of bmd-form-group -->
+              <div class="bmd-form-group mt-3">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="material-icons">lock_outline</i>
+                    </span>
+                  </div>
+                  <mat-form-field 
+                    class="w-75" 
+                    [ngClass]="{'has-danger': confirmPassword.touched && (
+                      confirmPassword.hasError('required') || confirmPassword.hasError('NoPassswordMatch')) }">
+                    <mat-label>Confirm Password</mat-label>
+                    <input
+                      formControlName="confirmPassword"
+                      matInput 
+                      [type]="hide ? 'password' : 'text'">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                  </mat-form-field>  
+                  <mat-error 
+                    *ngIf="confirmPassword.touched && confirmPassword.hasError('required')" 
+                    >
+                      Confirm Password is required.
+                  </mat-error>
+                  <mat-error 
+                    *ngIf="confirmPassword.touched && !confirmPassword.hasError('required') && confirmPassword.hasError('NoPassswordMatch')" 
+                    >
+                      Password must match
+                  </mat-error>
+                </div>
+              </div> <!-- end of bmd-form-group -->
+              <br>
+              <div class="justify-content-center">
+                <button type="submit" class="btn btn-primary mx-auto d-block" mat-raised-button>Create Account</button>
+              </div>
+            </form>
+          </div> <!-- end of card-body -->
+          <div class="card-footer justify-content-center">
+            Already have an Account? &nbsp;
+            <a href="javascript:void(0)" [routerLink]="['/login']">
+              Signin
+            </a>
+          </div>
+      </div> <!-- end of card -->
+  </div>
+</div>
